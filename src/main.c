@@ -11,6 +11,8 @@ int main(int argc, char **argv)
     int i; /* counters */
     int sh_allowed, echo_allowed;
     char hotel_current[NAME_MAXIMUM + 1], *user_input, *command;
+    char *p;
+    int c,b,l,d;
 
     sh_allowed = system(NULL);
     echo_allowed = 1;
@@ -22,11 +24,8 @@ int main(int argc, char **argv)
         else die("Incorrect usage! Use\n\t--no-shell-escape\n\t--no-prompt");
     }
 
-    char *p;
-    int c,b,l,d;
 
-    for(;;)
-    {
+    for(;;){
         errno = 0;
 
         if(echo_allowed){
@@ -39,24 +38,19 @@ int main(int argc, char **argv)
         if(feof(stdin) || ferror(stdin)) goto cleanup;
         command = strtok(user_input, " ");
 
-            p=strtok(NULL, "");
-            c=0,b=0,d=0;
-            while(*(p+b)==' ') b++;
-            while(*(p+c+b)!='\0')
-            {
-                *(p+c)=*(p+c+b);
-                c++;
-            }
+        p=strtok(NULL, "");
+        c=0,b=0,d=0;
+        while(*(p+b)==' ') b++;
+        while(*(p+c+b)!='\0'){
+            *(p+c)=*(p+c+b);
+            c++;
+        }
 
-            while(*(p+d)!='\0')
-            {
-                if(*(p+d)!=' ')
-                    l=d;
-
-                d++;
-            }
-            *(p+l+1)='\0';
-
+        while(*(p+d)!='\0'){
+            if(*(p+d)!=' ') l=d;
+            d++;
+        }
+        *(p+l+1)='\0';
 
              if(!command) goto loop_cleanup;
         else if(!strcmp(command, "help")) help(strtok(NULL, ""));
