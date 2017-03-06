@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     int sh_allowed, echo_allowed;
     char hotel_current[NAME_MAXIMUM + 1], *user_input, *command;
     char *p;
-    int c,b,l,d;
+    int c, b, l, d;
 
     sh_allowed = system(NULL);
     echo_allowed = 1;
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
             if(*(p+d)!=' ') l=d;
             d++;
         }
-        *(p+l+1)='\0';
+        p[l+1]='\0';
 
              if(!command) goto loop_cleanup;
         else if(!strcmp(command, "help")) help(strtok(NULL, ""));
